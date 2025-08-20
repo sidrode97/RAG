@@ -207,4 +207,5 @@ marimo/_lsp/
 __marimo__/
 
 #documents that are actually test files
-.txt
+*.txt
+*.pdf

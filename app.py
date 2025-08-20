@@ -104,11 +104,11 @@ def query_collection(query, top_k=5):
     response = collection.query(query_texts=[query], n_results=top_k)
     #extract all the relevant document chunks from the response
     relevant_document_chunks = [doc_chunk for doc in response['documents']for doc_chunk in doc]
-    #take a peek at the chunks of the top matching document
-    for idx, doc_chunk in enumerate(response["documents"][0]):
-        chunk_id = response["ids"][0][idx]
-        distance = response["distances"][0][idx]
-        print(f"Found document chunk: {doc_chunk} with ID: {chunk_id}, Distance: {distance}")
+    #take a peek at the top matching chunks
+    # for idx, doc_chunk in enumerate(response["documents"][0]):
+    #     chunk_id = response["ids"][0][idx]
+    #     distance = response["distances"][0][idx]
+    #     print(f"Found document chunk: {doc_chunk} with ID: {chunk_id}, Distance: {distance}")
     print("returning the top f{top_k} relevant document chunks")
     return relevant_document_chunks
 
@@ -133,7 +133,7 @@ def generate_openai_response(question, relevant_chunks):
     return answer
 
 #example question
-question = "Will AI replace humans in the future?"
+question = "Can you tell me something about Hugging Face and its contributions to the field of AI?"
 relevant_chunks = query_collection(question)
 answer = generate_openai_response(question, relevant_chunks)
 
