@@ -115,17 +115,19 @@ def query_collection(query, top_k=5):
 #create a function to generate a response using the OpenAI client
 def generate_openai_response(question, relevant_chunks):
     context = "\n".join(relevant_chunks)
-    prompt = (
-        "you are a helpful assistant for question-answering based on provided" "context. Use the following retrieved context to answer the question"
-        ".If you dont know the answer say I dont know. Use maximum of"
+    system_prompt = (
+        "you are a helpful assistant for question-answering based on provided" "context.If you dont know the answer say I dont know. Use maximum of"
         "3 sentences and keep the answer concise.\n\n"
-        f"context:\n{context}\n\n"
-        f"question:\n {question}"
+    )
+    user_prompt = (
+        "use only the context below to answer the question.\n\n"
+        f"Context: {context}\n\n"
+        f"Question: {question}\n\n"
     )
     response = openai_client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": prompt},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": question}
         ]
     )
