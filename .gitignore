@@ -205,3 +205,10 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+#documents that are actually test files
+*.txt
+*.pdf
+chroma_persistent_storage/chroma.sqlite3
+.vscode/launch.json
+*.sqlite3
